@@ -1,0 +1,56 @@
+name: 'AUR Update'
+description: 'Update AUR package to latest GitHub Release'
+inputs:
+  token:
+    description: 'The GitHub token to access github. Default: The GITHUB_TOKEN in environment variable.'
+    required: false
+
+  pkgbuild:
+    description: |
+      The template filename to generate PKGBUILD. The tempalte will be formatted using ejs with the information of release.
+      For all usable information, please see: https://docs.github.com/en/rest/reference/repos#get-the-latest-release
+      For ejs syntax, please see: https://github.com/mde/ejs
+    required: true
+    default: 'PKGBUILD.template'
+
+  repo:
+    description: 'The Github repo to get release. Default: the current repository. Format: <owner>/<repo>'
+    required: false
+
+  ssh_private_key:
+    description: 'The ssh private key to push package to AUR'
+    required: true
+
+  commit_msg:
+    description: 'The commit msg sent to AUR. Default: "Bump to <tag_name>".'
+    required: false
+    default: |
+      Bump to {{ tag_name }}
+
+  author:
+    description: |
+      The AUR author.
+      Format: YourName <email@example.com>
+      Note: If you does not set this input param, the author of the latest release's commit will be used.
+    required: false
+
+  build_step:
+    description: |
+      This action will use makepkg to check if PKGBUILD is ok. You can break at one of the steps listed below:
+      * download
+      * extract
+      * prepare
+      * build (with package)
+      * check
+      * install
+
+    required: false
+    default: check
+
+outputs:
+  commit:
+    description: 'The pushed commit'
+
+runs:
+  using: 'docker'
+  image: 'src/Dockerfile'
