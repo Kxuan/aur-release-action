@@ -45,4 +45,4 @@ install) makepkg --noconfirm -si --check ;;
   exit 1
   ;;
 esac
-#git push
+git push
