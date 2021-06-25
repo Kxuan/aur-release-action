@@ -1,6 +1,5 @@
 #!/bin/bash
 # since makepkg can not run as root, we need this script to do some job as non-root user
-set -x
 set -e
 TOOL_DIR=$(readlink -f "$(dirname "$0")")
 function get_package_name() {
