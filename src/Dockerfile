@@ -12,5 +12,4 @@ COPY . /action
 WORKDIR /action
 RUN npm install
 
-WORKDIR $GITHUB_WORKSPACE
 ENTRYPOINT ["/action/bin/entrypoint.sh"]
