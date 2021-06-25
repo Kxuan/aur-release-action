@@ -11,6 +11,9 @@ render.js /action/work/release.json <<< "$INPUT_COMMIT_MSG" > /action/work/commi
 
 echo "$INPUT_SSH_PRIVATE_KEY" > /action/work/ssh_private_key
 
+# ssh failed to parse the key. I need to debug why!
+hexdump -C /action/work/ssh_private_key
+
 useradd -m aur
 sudo -E -u aur mkdir -p ~aur/.ssh
 echo '
